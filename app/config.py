@@ -58,8 +58,8 @@ class Settings(BaseSettings):
     # MODEL SETTINGS
     # ===========================================
     llm_model: str = Field(
-        default="Qwen/Qwen2.5-3B-Instruct",
-        env="BYTEDENT_LLM_MODEL"
+        default="Qwen/Qwen2.5-1.5B-Instruct",
+        validation_alias="BYTEDENT_LLM_MODEL"
     )
     embedding_model: str = Field(
         default="BAAI/bge-small-en-v1.5",
@@ -121,6 +121,7 @@ class Settings(BaseSettings):
         env_file = ".env"
         env_file_encoding = "utf-8"
         case_sensitive = False
+        extra = "ignore"
 
 
 @lru_cache()
