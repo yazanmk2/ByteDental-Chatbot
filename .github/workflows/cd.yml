@@ -33,7 +33,7 @@ jobs:
             pip install -r requirements.txt --quiet
 
             echo "=== Restarting service ==="
-            sudo systemctl restart chatbot
+            sudo systemctl restart bytedent-chatbot
 
             echo "=== Waiting for service to start ==="
             sleep 10
@@ -46,7 +46,7 @@ jobs:
               fi
               if [ $i -eq 6 ]; then
                 echo "Health check failed after 6 attempts"
-                sudo journalctl -u chatbot --no-pager -n 50
+                sudo journalctl -u bytedent-chatbot --no-pager -n 50
                 exit 1
               fi
               echo "Waiting for service... (attempt $i/6)"
