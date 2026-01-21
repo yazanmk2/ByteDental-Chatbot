@@ -32,6 +32,14 @@ jobs:
             echo "=== Installing dependencies ==="
             pip install -r requirements.txt --quiet
 
+            echo "=== Downloading model if needed ==="
+            if [ ! -f "/opt/senior-dental-ai-chatbot/models/qwen2.5-3b-instruct-q4_k_m.gguf" ]; then
+              echo "Model not found, downloading Qwen2.5-3B-Instruct..."
+              bash scripts/download_model.sh
+            else
+              echo "Model already exists, skipping download"
+            fi
+
             echo "=== Restarting service ==="
             sudo systemctl restart bytedent-chatbot
 

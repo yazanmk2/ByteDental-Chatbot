@@ -58,7 +58,7 @@ class Settings(BaseSettings):
     # MODEL SETTINGS
     # ===========================================
     llm_model: str = Field(
-        default="Qwen/Qwen2.5-1.5B-Instruct",
+        default="Qwen/Qwen2.5-3B-Instruct",
         validation_alias="BYTEDENT_LLM_MODEL"
     )
     embedding_model: str = Field(

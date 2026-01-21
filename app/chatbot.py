@@ -39,7 +39,7 @@ os.environ["OMP_NUM_THREADS"] = str(CPU_THREADS)
 os.environ["TOKENIZERS_PARALLELISM"] = "true"
 
 # Path to GGUF model for fast CPU inference
-GGUF_MODEL_PATH = "/opt/senior-dental-ai-chatbot/models/qwen2.5-0.5b-instruct-q4_k_m.gguf"
+GGUF_MODEL_PATH = "/opt/senior-dental-ai-chatbot/models/qwen2.5-3b-instruct-q4_k_m.gguf"
 
 
 # ===========================================
@@ -298,7 +298,7 @@ class ByteDentChatbot:
         )
 
         logger.info(f"GGUF model loaded with {CPU_THREADS} threads")
-        logger.info("Model: Qwen2.5-0.5B-Instruct Q4_K_M (optimized for CPU)")
+        logger.info("Model: Qwen2.5-3B-Instruct Q4_K_M (optimized for CPU)")
 
     def _build_knowledge_base(self):
         """Build the knowledge base index"""
