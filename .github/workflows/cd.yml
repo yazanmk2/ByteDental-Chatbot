@@ -8,9 +8,23 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     environment: production
+    # Only run deployment if secrets are configured
+    if: ${{ secrets.SERVER_HOST != '' }}
 
     steps:
+      - name: Check deployment secrets
+        run: |
+          if [ -z "${{ secrets.SERVER_HOST }}" ]; then
+            echo "⚠️  Deployment secrets not configured. Skipping deployment."
+            echo "To enable automatic deployment, configure these GitHub secrets:"
+            echo "  - SERVER_HOST: Production server IP or hostname"
+            echo "  - SERVER_USER: SSH username (typically 'root')"
+            echo "  - SSH_PRIVATE_KEY: SSH private key for authentication"
+            exit 0
+          fi
+
       - name: Deploy to production server
+        if: ${{ secrets.SERVER_HOST != '' }}
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.SERVER_HOST }}
