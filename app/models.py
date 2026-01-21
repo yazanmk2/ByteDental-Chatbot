@@ -6,7 +6,7 @@ ensuring type safety, automatic documentation, and clear API contracts.
 """
 
 from typing import List, Optional, Dict, Any
-from pydantic import BaseModel, Field
+from pydantic import BaseModel, Field, ConfigDict
 from datetime import datetime
 from enum import Enum
 
@@ -107,6 +107,8 @@ class ChatResponse(BaseModel):
             "request_id": "req_123"
         }
     """
+    model_config = ConfigDict(json_encoders={datetime: lambda v: v.isoformat()})
+
     type: ResponseType = Field(
         ...,
         description="Response type: 'answer' or 'handoff'"
@@ -170,6 +172,8 @@ class ChatResponse(BaseModel):
 
 class HandoffPayload(BaseModel):
     """Structured payload for support handoff"""
+    model_config = ConfigDict(json_encoders={datetime: lambda v: v.isoformat()})
+
     user_question: str
     handoff_reason: str
     retrieved_context_snippets: List[str] = Field(default=[])
@@ -197,6 +201,8 @@ class HealthResponse(BaseModel):
 
     Used by load balancers and monitoring systems.
     """
+    model_config = ConfigDict(json_encoders={datetime: lambda v: v.isoformat()})
+
     status: HealthStatus = Field(
         ...,
         description="Overall health status"
@@ -258,6 +264,8 @@ class ErrorResponse(BaseModel):
     CTO Note: Consistent error format across all endpoints
     for easier client-side error handling.
     """
+    model_config = ConfigDict(json_encoders={datetime: lambda v: v.isoformat()})
+
     error: bool = Field(default=True)
     status_code: int = Field(..., description="HTTP status code")
     message: str = Field(..., description="Human-readable error message")

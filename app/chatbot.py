@@ -140,7 +140,7 @@ class ChatResult:
     citations: List[str]
     handoff_reason: Optional[str]
     retrieval_result: RetrievalResult
-    gate_decision: GateDecision
+    gate_decision: Optional[GateDecision]
     generation_time_ms: float
     total_time_ms: float
     request_id: str
@@ -511,9 +511,10 @@ Respond with JSON only, no other text:"""
                 handoff_reason=conv_response["handoff_reason"],
                 retrieval_result=RetrievalResult(
                     chunks=[],
-                    top_similarity_score=None,
-                    chunks_retrieved=0,
-                    retrieval_time_ms=0
+                    scores=[],
+                    max_score=0.0,
+                    passed_threshold=True,
+                    retrieval_time_ms=0.0
                 ),
                 gate_decision=None,
                 generation_time_ms=0,
