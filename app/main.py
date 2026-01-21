@@ -228,7 +228,7 @@ async def http_exception_handler(request: Request, exc: HTTPException):
             status_code=exc.status_code,
             message=exc.detail,
             request_id=request_id
-        ).model_dump()
+        ).model_dump(mode='json')
     )
 
 
@@ -251,7 +251,7 @@ async def general_exception_handler(request: Request, exc: Exception):
             status_code=500,
             message="An internal error occurred. Please try again later.",
             request_id=request_id
-        ).model_dump()
+        ).model_dump(mode='json')
     )
 
 
