@@ -43,6 +43,16 @@ class ChatRequest(BaseModel):
             "metadata": {"source": "web"}
         }
     """
+    model_config = ConfigDict(
+        json_schema_extra={
+            "example": {
+                "message": "What is a periapical abscess?",
+                "conversation_id": "conv_123",
+                "metadata": {"source": "web", "user_type": "dentist"}
+            }
+        }
+    )
+
     message: str = Field(
         ...,
         min_length=1,
@@ -59,15 +69,6 @@ class ChatRequest(BaseModel):
         default=None,
         description="Optional metadata for the request"
     )
-
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "message": "What is a periapical abscess?",
-                "conversation_id": "conv_123",
-                "metadata": {"source": "web", "user_type": "dentist"}
-            }
-        }
 
 
 # ===========================================
@@ -107,7 +108,29 @@ class ChatResponse(BaseModel):
             "request_id": "req_123"
         }
     """
-    model_config = ConfigDict(json_encoders={datetime: lambda v: v.isoformat()})
+    model_config = ConfigDict(
+        json_encoders={datetime: lambda v: v.isoformat()},
+        json_schema_extra={
+            "example": {
+                "type": "answer",
+                "message": "A CBCT (Cone Beam Computed Tomography) scan is a specialized 3D dental imaging technology...",
+                "citations": [
+                    "CBCT is a specialized three-dimensional dental imaging technology",
+                    "CBCT uses a cone-shaped X-ray beam that rotates around the patient's head"
+                ],
+                "handoff_reason": None,
+                "retrieval": {
+                    "top_similarity_score": 0.87,
+                    "chunks_retrieved": 5,
+                    "retrieval_time_ms": 45.2
+                },
+                "request_id": "req_abc123",
+                "conversation_id": "conv_123",
+                "processing_time_ms": 1250.5,
+                "timestamp": "2024-01-15T10:30:00Z"
+            }
+        }
+    )
 
     type: ResponseType = Field(
         ...,
@@ -147,28 +170,6 @@ class ChatResponse(BaseModel):
         description="Response timestamp (UTC)"
     )
 
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "type": "answer",
-                "message": "A CBCT (Cone Beam Computed Tomography) scan is a specialized 3D dental imaging technology...",
-                "citations": [
-                    "CBCT is a specialized three-dimensional dental imaging technology",
-                    "CBCT uses a cone-shaped X-ray beam that rotates around the patient's head"
-                ],
-                "handoff_reason": None,
-                "retrieval": {
-                    "top_similarity_score": 0.87,
-                    "chunks_retrieved": 5,
-                    "retrieval_time_ms": 45.2
-                },
-                "request_id": "req_abc123",
-                "conversation_id": "conv_123",
-                "processing_time_ms": 1250.5,
-                "timestamp": "2024-01-15T10:30:00Z"
-            }
-        }
-
 
 class HandoffPayload(BaseModel):
     """Structured payload for support handoff"""
@@ -201,7 +202,23 @@ class HealthResponse(BaseModel):
 
     Used by load balancers and monitoring systems.
     """
-    model_config = ConfigDict(json_encoders={datetime: lambda v: v.isoformat()})
+    model_config = ConfigDict(
+        json_encoders={datetime: lambda v: v.isoformat()},
+        json_schema_extra={
+            "example": {
+                "status": "healthy",
+                "version": "1.0.0",
+                "environment": "production",
+                "timestamp": "2024-01-15T10:30:00Z",
+                "components": {
+                    "llm_model": {"status": "healthy", "message": "Model loaded"},
+                    "vector_store": {"status": "healthy", "latency_ms": 5.2},
+                    "embedding_model": {"status": "healthy"}
+                },
+                "uptime_seconds": 3600.5
+            }
+        }
+    )
 
     status: HealthStatus = Field(
         ...,
@@ -229,22 +246,6 @@ class HealthResponse(BaseModel):
         description="Service uptime in seconds"
     )
 
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "status": "healthy",
-                "version": "1.0.0",
-                "environment": "production",
-                "timestamp": "2024-01-15T10:30:00Z",
-                "components": {
-                    "llm_model": {"status": "healthy", "message": "Model loaded"},
-                    "vector_store": {"status": "healthy", "latency_ms": 5.2},
-                    "embedding_model": {"status": "healthy"}
-                },
-                "uptime_seconds": 3600.5
-            }
-        }
-
 
 # ===========================================
 # ERROR MODELS
@@ -264,17 +265,9 @@ class ErrorResponse(BaseModel):
     CTO Note: Consistent error format across all endpoints
     for easier client-side error handling.
     """
-    model_config = ConfigDict(json_encoders={datetime: lambda v: v.isoformat()})
-
-    error: bool = Field(default=True)
-    status_code: int = Field(..., description="HTTP status code")
-    message: str = Field(..., description="Human-readable error message")
-    details: List[ErrorDetail] = Field(default=[], description="Detailed error information")
-    request_id: Optional[str] = Field(default=None, description="Request ID for tracking")
-    timestamp: datetime = Field(default_factory=datetime.utcnow)
-
-    class Config:
-        json_schema_extra = {
+    model_config = ConfigDict(
+        json_encoders={datetime: lambda v: v.isoformat()},
+        json_schema_extra={
             "example": {
                 "error": True,
                 "status_code": 400,
@@ -290,6 +283,14 @@ class ErrorResponse(BaseModel):
                 "timestamp": "2024-01-15T10:30:00Z"
             }
         }
+    )
+
+    error: bool = Field(default=True)
+    status_code: int = Field(..., description="HTTP status code")
+    message: str = Field(..., description="Human-readable error message")
+    details: List[ErrorDetail] = Field(default=[], description="Detailed error information")
+    request_id: Optional[str] = Field(default=None, description="Request ID for tracking")
+    timestamp: datetime = Field(default_factory=datetime.utcnow)
 
 
 # ===========================================
