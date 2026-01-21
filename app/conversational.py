@@ -120,10 +120,10 @@ class ConversationalHandler:
         """Check if text matches any of the patterns"""
         return any(re.search(pattern, text) for pattern in patterns)
 
-    def _create_response(self, message: str, response_type: str = "conversational") -> Dict:
+    def _create_response(self, message: str, response_type: str = "answer") -> Dict:
         """Create a formatted conversational response"""
         return {
-            "type": "conversational",
+            "type": "answer",
             "message": message,
             "citations": [],
             "handoff_reason": None,
