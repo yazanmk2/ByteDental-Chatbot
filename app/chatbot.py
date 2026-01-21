@@ -30,6 +30,7 @@ from llama_cpp import Llama
 from app.config import settings
 from app.logger import get_logger
 from app.knowledge_base import get_knowledge_base
+from app.conversational import get_conversational_handler
 
 # ===========================================
 # CPU PERFORMANCE OPTIMIZATIONS
@@ -492,6 +493,33 @@ Respond with JSON only, no other text:"""
         request_id = request_id or str(uuid.uuid4())
 
         logger.info(f"Processing chat request", extra={"request_id": request_id})
+
+        # Check for conversational queries first (greetings, small talk)
+        conversational = get_conversational_handler()
+        conv_response = conversational.handle(question)
+        if conv_response:
+            total_time = (time.time() - total_start) * 1000
+            logger.info(
+                f"Conversational response returned",
+                extra={"request_id": request_id, "duration_ms": total_time}
+            )
+            # Convert conversational response to ChatResult format
+            return ChatResult(
+                type=conv_response["type"],
+                message=conv_response["message"],
+                citations=conv_response["citations"],
+                handoff_reason=conv_response["handoff_reason"],
+                retrieval_result=RetrievalResult(
+                    chunks=[],
+                    top_similarity_score=None,
+                    chunks_retrieved=0,
+                    retrieval_time_ms=0
+                ),
+                gate_decision=None,
+                generation_time_ms=0,
+                total_time_ms=total_time,
+                request_id=request_id
+            )
 
         # Check cache first for instant response
         cached = _response_cache.get(question)

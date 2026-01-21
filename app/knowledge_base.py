@@ -1582,6 +1582,60 @@ We welcome feedback to improve ByteDent.
 Share your suggestions for new features or improvements.
 
 Email: feedback@bytedent.ai
+
+---
+
+# About the ByteDent Development Team
+
+## Team Members
+
+**Yazan Maksoud** - Product Owner & Project Manager
+Yazan Maksoud is the Product Owner and Project Manager of ByteDent. He leads the product vision, strategy, and overall project execution. Yazan coordinates between all team members and stakeholders to ensure the successful delivery of ByteDent's AI-powered dental imaging platform.
+
+**Raneem Rabah** - Mobile App Developer & AI Engineer
+Raneem Rabah is the Mobile App Developer and AI Engineer at ByteDent. She specializes in developing the mobile applications (iOS and Android) and contributes to the AI engineering aspects of the platform. Raneem ensures seamless integration between the mobile interface and ByteDent's AI services.
+
+**Ahmad Bashir** - AI Engineer & Research Lead
+Ahmad Bashir is an AI Engineer and the Research Lead at ByteDent. He is the technical researcher who reads scientific papers, conducts research studies, and authors most of the technical reports and documentation for the project. Ahmad's deep expertise in AI research drives the innovation behind ByteDent's dental imaging analysis capabilities.
+
+**Rama Shrebati** - Backend Developer (Part-Time)
+Rama Shrebati is a part-time Backend Developer at ByteDent. She contributes to the development and maintenance of the backend infrastructure, API services, and server-side components that power the ByteDent platform.
+
+## Team Questions & Answers
+
+Q: Who is the Product Owner of ByteDent?
+A: Yazan Maksoud is the Product Owner and Project Manager of ByteDent.
+
+Q: Who developed the ByteDent mobile app?
+A: Raneem Rabah developed the ByteDent mobile applications as the Mobile App Developer and AI Engineer.
+
+Q: Who is responsible for AI research at ByteDent?
+A: Ahmad Bashir is the AI Engineer and Research Lead who conducts research, reads papers, and writes technical reports.
+
+Q: Who works on the backend of ByteDent?
+A: Rama Shrebati is the part-time Backend Developer who maintains the backend infrastructure and API services.
+
+Q: Who is the project manager?
+A: Yazan Maksoud serves as the Project Manager in addition to being the Product Owner.
+
+Q: Who wrote the technical reports for ByteDent?
+A: Ahmad Bashir, as the Research Lead, authored most of the technical reports and research documentation.
+
+Q: What is Ahmad Bashir's role?
+A: Ahmad Bashir is an AI Engineer and Research Lead. He reads scientific papers, conducts research, and writes most of the technical reports for the project.
+
+Q: Who are the AI engineers at ByteDent?
+A: Both Raneem Rabah and Ahmad Bashir are AI Engineers. Raneem focuses on mobile AI integration, while Ahmad leads the research efforts.
+
+Q: What does Yazan Maksoud do?
+A: Yazan Maksoud is the Product Owner and Project Manager who leads the product vision, strategy, and coordinates the team.
+
+Q: Is Rama Shrebati full-time or part-time?
+A: Rama Shrebati works part-time as a Backend Developer at ByteDent.
+
+## Development Team Contact
+
+For questions about the ByteDent team or to connect with team members, please use the official ByteDent contact channels listed above.
 """
 
 
